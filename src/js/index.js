@@ -4,43 +4,33 @@ function decrimentOrIncrement(a, b, dec = false) {
         console.log(a)
         a++
         decrimentOrIncrement(a,b)
-    } else if (a >= b) {
+    } else if (a >= b && dec) {
         console.log(a)
         a--
         decrimentOrIncrement(a,b,true)
     }
 }
-decrimentOrIncrement(22,8)
+decrimentOrIncrement(1,5)
 console.log('------------- #4')
-const date = document.getElementById('date');
+const time = document.getElementById('time');
 
-var timerFullDate = setInterval(setDate,1000)
-var timerShortDate
-var formatDate = 'full'
+setInterval(setDate,1000)
 
-function setDate(full = true) {
+function setDate() {
     const currentDate = new Date();
     let hours = currentDate.getHours() < 10 ? '0'+currentDate.getHours() : currentDate.getHours()
     let minutes = currentDate.getMinutes() < 10 ? '0'+currentDate.getMinutes() : currentDate.getMinutes()
     let seconds = currentDate.getSeconds() < 10 ? '0'+currentDate.getSeconds() : currentDate.getSeconds()
 
-    if (full) {
-        date.innerHTML = `${hours}:${minutes}:${seconds}`
+    if (time.classList.contains('full')) {
+        time.innerHTML = `${hours}:${minutes}:${seconds}`
     } else {
-        date.innerHTML = `${hours}:${minutes}`
+        time.innerHTML = `${hours}:${minutes}`
     }
 }
 
-date.addEventListener('click', changeFormat)
-function changeFormat() {
-    if (formatDate === 'full') {
-        formatDate = 'short'
-        clearInterval(timerFullDate)
-        timerShortDate = setInterval( () => setDate(false),1000)
-    } else {
-        formatDate = 'full'
-        clearInterval(timerShortDate)
-        timerFullDate = setInterval(setDate,1000)
-    }
+time.addEventListener('click', changeFormat)
 
+function changeFormat() {
+    time.classList.toggle('full')
 }
